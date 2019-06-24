@@ -1,19 +1,66 @@
-import React from 'react';
+
 import logo from './logo.svg';
 import './App.css';
-import Welcome from './Welcome'
-import Todos from './Todos';
-import Users from './Users';
-import Library from './Library'
+
+import React, { Suspense, lazy } from 'react';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
+import Upload from './Upload';
+
+
 
 class App extends React.Component {
+  constructor(){
+    super();
+
+    this.state={
+      count:0
+    }
+
+    var routesFromDB=[
+      {
+        id:1,
+        path:"/",
+        component:"HomePage"
+      },
+      {
+        id:2,
+        path:"/about",
+        component:"AboutPage"
+      },
+      {
+        id:3,
+        path:"/contact",
+        component:"ContactPage"
+      }
+    ]
+
+    this.state={
+      routes:routesFromDB
+    }
+    
+  }
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Welcome year={2020} password="123456"/>
-        </header>
-        <Library/>
+        {/* <Router>
+          <Switch>
+            <Suspense fallback={<div>Loading...</div>}>
+              {
+                this.state.routes.map((route)=>{
+                  return <Route exact path={route.path} component={lazy(() => import(`./containers/${route.component}`))}/>
+                })
+              }
+            </Suspense>
+          </Switch>
+        </Router> */}
+        <Upload/>
       </div>
     );
   }

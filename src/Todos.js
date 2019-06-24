@@ -8,6 +8,8 @@ class Todos extends Component{
             todos:[],
             todo:''
         }
+
+        this.myTodoRef=React.createRef();
     }
 
     onTodoChange=(e)=>{
@@ -27,11 +29,15 @@ class Todos extends Component{
         })
     }
 
+    componentDidMount(){
+        this.myTodoRef.current.focus();
+    }
+
     render(){
         return(
             <div>
                 <h1>Todos</h1>
-                <input type="text" value={this.state.todo} onChange={this.onTodoChange} name="todo"/>
+                <input type="text" ref={this.myTodoRef} value={this.state.todo} onChange={this.onTodoChange} name="todo"/>
                 <button onClick={this.addTodo}>Add</button>
                 <ul>
                     {
